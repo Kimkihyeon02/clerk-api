@@ -24,7 +24,7 @@ export default function Header() {
               Repository
             </Link>
 
-            <Link href="/repos" className="text-gray-300 hover:text-white mr-4">
+            <Link href="/courses" className="text-gray-300 hover:text-white mr-4">
               Courses
             </Link>
           </div>
@@ -52,7 +52,7 @@ export default function Header() {
                 Dashboard
               </Link>
               <Link
-                href="/dashboard-client"
+                href="/client-dashboard"
                 className="text-gray-300 hover:text-white mr-4"
               >
                 DashboardC
