@@ -1,25 +1,23 @@
-'use client'
-import { useAuth, useUser } from '@clerk/nextjs'
-import React from 'react'
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type Props = {}
-export default function DashboardClientPage({}: Props) {
-  const { isLoaded: isLoadedAuth, userId, sessionId } = useAuth()
-  const { isLoaded: isLoadedUser, isSignedIn, user } = useUser()
-  if (!isLoadedAuth || !userId) {
-    return null
-  }
-  if (!isLoadedUser || !isSignedIn) {
-    return null
-  }
+export default async function Dashboard() {
+  const { userId } = auth();
+  const user = await currentUser();
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4"> Dashboard (Client-side)</h1>
-      <p>Hello, {user.fullName}</p>
-      <p>Your first name is {user.firstName}</p>
-      <p>Your user ID: {userId}</p>
-      <p>Your current active session: {sessionId}</p>
+      <h1 className="text-2xl font-bold mb-5">Dashboard (Server-side)</h1>
+      <p className="mb-5">
+        Welcome to server-side dashboard. This page shows the personal
+        information of the logged-in user.
+      </p>
+      {userId && (
+        <div>
+          <p>UserID: {userId}</p>
+          <p>Name: {user?.fullName}</p>
+          <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
+        </div>
+      )}
     </div>
-  )
+  );
 }
